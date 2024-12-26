@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $title }}</title>
-    <link rel="shortcut icon" href="{{ url('logo-food.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ url('encrypt-icon-0.jpg') }}" type="image/x-icon">
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -98,7 +98,7 @@
                         <a href="{{ url('#') }}" class="dropdown-item">
                             <!-- Message Start -->
                             <div class="media">
-                                <img src="{{ url('logo-food.png') }}" alt="User Avatar"
+                                <img src="{{ asset('encrypt-icon-0.jpg') }}" alt="User Avatar"
                                     class="img-size-50 mr-3 img-circle">
                                 <div class="media-body">
                                     <h3 class="dropdown-item-title">
@@ -133,9 +133,9 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="{{ url('#') }}" class="brand-link">
-                <img src="{{ url('logo-food.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-                    style="opacity: .8">
-                <span class="brand-text font-weight-light">NightSunDesign.com </span>
+                <img src="{{ url('encrypt-icon-0.jpg') }}" alt="AdminLTE Logo"
+                    class="brand-image img-circle elevation-3" style="opacity: .8">
+                <span class="brand-text font-weight-light"> AES & RSA </span>
             </a>
 
             <!-- Sidebar -->
@@ -165,70 +165,9 @@
                                 </p>
                             </a>
                         </li>
-                        {{-- ADMINISTRATOR  --}}
-                        @if (Auth::user()->user_jab_id == '1')
-                            <li
-                                class="nav-item {{ Request::is('main/satuan*') || Request::is('main/kategori*') || Request::is('main/produk*') ? 'menu-open' : '' }}">
-                                <a href="#"
-                                    class="nav-link {{ Request::is('main/satuan*') || Request::is('main/kategori*') || Request::is('main/produk*') ? 'active' : '' }}">
-                                    <i class="nav-icon fas fa-database"></i>
-                                    <p>
-                                        Master Data
-                                        <i class="fas fa-angle-left right"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="{{ url('main/satuan') }}"
-                                            class="nav-link {{ Request::is('main/satuan*') ? 'active' : '' }}">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>
-                                                Data satuan
-                                            </p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ url('main/kategori') }}"
-                                            class="nav-link {{ Request::is('main/kategori*') ? 'active' : '' }}">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>
-                                                Data kategori
-                                            </p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ url('main/produk') }}"
-                                            class="nav-link {{ Request::is('main/produk*') ? 'active' : '' }}">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>
-                                                Data produk
-                                            </p>
-                                        </a>
-                                    </li>
 
-                                </ul>
-                            </li>
-                            <li class="nav-header">About me </li>
-                            <li class="nav-item">
-                                <a href="{{ url('main/kontak') }}"
-                                    class="nav-link {{ Request::is('main/kontak*') ? 'active' : '' }}">
-                                    <i class="nav-icon fas fa-phone"></i>
-                                    <p>
-                                        Data kontak
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ url('main/ketentuan') }}"
-                                    class="nav-link {{ Request::is('main/ketentuan*') ? 'active' : '' }}">
-                                    <i class="nav-icon fas fa-paw"></i>
-                                    <p>
-                                        Cara Pemesanan
-                                    </p>
-                                </a>
-                            </li>
+                        @auth
 
-                            <li class="nav-header">Akun Admin </li>
                             <li class="nav-item">
                                 <a href="{{ url('main/user') }}"
                                     class="nav-link {{ Request::is('main/user*') ? 'active' : '' }}">
@@ -238,9 +177,17 @@
                                     </p>
                                 </a>
                             </li>
-                        @endif
+                            <li class="nav-item">
+                                <a href="{{ url('main/dokumen') }}"
+                                    class="nav-link {{ Request::is('main/dokumen*') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-database"></i>
+                                    <p>
+                                        Dokumen
+                                    </p>
+                                </a>
+                            </li>
+                        @endauth
 
-                        {{-- ADMINISTRATOR END --}}
 
                     </ul>
                 </nav>
@@ -281,9 +228,9 @@
 
         <!-- Main Footer -->
         <footer class="main-footer">
-            <strong>Copyright &copy; {{ date('Y') }} <a href="#">NightSunDesign.com</a>
+            <strong>Copyright &copy; {{ date('Y') }} <a href="#"> AES dan RSA file enkerip</a>
                 ||</strong>
-            Suportby NightSunDesign.com.
+            Suportby AES dan RSA file enkerip.
             <div class="float-right d-none d-sm-inline-block">
                 <b>Version</b> 1.0
             </div>

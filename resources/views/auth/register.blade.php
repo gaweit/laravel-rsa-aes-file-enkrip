@@ -7,7 +7,7 @@
             <div class="card-header text-center">
                 <img style="width: 50%;" src="{{ url('logo-food.png') }}" alt=""><br>
                 <a href="" class="h1"><b>Admin </b>
-                    <p>NightSunDesign.com</p>
+                    <p> AES dan RSA file enkerip</p>
                 </a>
             </div>
             @if (session('success'))
@@ -19,7 +19,7 @@
                 </div>
             @endif
             <div class="card-body">
-                <p class="login-box-msg">NightSunDesign.com</p>
+                <p class="login-box-msg"> AES dan RSA file enkerip</p>
                 <form method="post" action="{{ route('register') }}">
                     @csrf
                     <div class="input-group mb-3">

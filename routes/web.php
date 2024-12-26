@@ -5,6 +5,7 @@ use App\Http\Controllers\Main\HomeController;
 use App\Http\Controllers\Main\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Main\DokumenController;
 use App\Http\Controllers\Main\KategoriController;
 
 // Route::get('/', function () {
@@ -36,4 +37,5 @@ Route::prefix('main')->middleware('auth')->group(function () {
 
     // kategori
     Route::resource('kategori', KategoriController::class);
+    Route::resource('dokumen', DokumenController::class);
 });

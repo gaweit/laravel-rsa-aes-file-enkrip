@@ -1,13 +1,13 @@
 @extends('layouts.layout_auth')
-@section('title', 'Admin NightSunDesign.com || UIN STS Jambi')
+@section('title', 'Admin AES dan RSA file enkerip || UIN STS Jambi')
 @section('content')
     <div class="login-box">
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
                 <img style="width: 50%;" src="{{ url('logo-food.png') }}" alt=""><br>
-                <a href="" class="h1" style="font-size: 22px"><b>Admin </b>
-                    <p style="font-size: 22px">NightSunDesign.com</p>
+                <a href="" class="h1" style="font-size: 22px"><b>Log In </b>
+                    <p style="font-size: 22px"> AES dan RSA file enkerip</p>
                 </a>
             </div>
             @if (session('success'))
@@ -58,8 +58,9 @@
                     </div>
                 </form>
                 <hr>
-                <p align="center">CopyRight &copy; {{ date('Y') }} <br> SupportBy || <a
-                        href="http://kontakk.com/web.jasa" target="_blank" rel="noopener noreferrer">Web.Jasa</a></p>
+                <p align="center">CopyRight &copy; {{ date('Y') }} <br> SupportBy || <a href="#" target="_blank"
+                        rel="noopener noreferrer"> AES
+                        dan RSA file enkerip</a></p>
             </div>
             <!-- /.card-body -->
         </div>

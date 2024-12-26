@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Main;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
-use App\Models\Jabatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -14,14 +13,13 @@ class UserController extends Controller
     {
 
         $data['title'] = "User";
-        $user = User::with('jabatan')->get();
+        $user = User::get();
         $data['result'] = $user->sortDesc();
         return view("main.user.index", $data);
     }
     public function tambah()
     {
 
-        $data['jabatan'] = Jabatan::all();
         $data['title'] = "Tambah User";
         return view("main.user.tambah", $data);
     }
@@ -46,7 +44,6 @@ class UserController extends Controller
     {
         $post = User::find($id);
         $post->name = $request->name;
-        $post->username = $request->username;
         $post->email = $request->email;
         $post->password = bcrypt($request->password);
         $post->save();

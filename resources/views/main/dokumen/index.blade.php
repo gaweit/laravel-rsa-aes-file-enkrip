@@ -1,7 +1,8 @@
 @extends('layouts.layout_main')
+
 @section('content')
     <div class="container-fluid" style="padding-left: 1%;">
-        <a href="{{ url('main/user/tambah') }}" class="btn btn-primary">Tambah Data</a>
+        <a href="{{ url('main/dokumen/create') }}" class="btn btn-primary">Create</a>
     </div>
     <br>
 
@@ -30,8 +31,8 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama</th>
-                                        <th>Email</th>
+                                        <th>Nama User</th>
+                                        <th>Dokumen</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -39,17 +40,23 @@
                                     @php
                                         $urutan = 1;
                                     @endphp
-                                    @foreach ($result as $row)
+                                    @foreach ($result as $item)
                                         <tr>
                                             <td>{{ $urutan++ }}</td>
-                                            <td>{{ $row->name }}</td>
-                                            <td>{{ $row->email }}</td>
+                                            <td>{{ $item->user->name }}</td>
+                                            <td><a target="_blank" href="{{ asset('storage/' . $item->file) }}"
+                                                    class="btn btn-primary">Download File</a></td>
                                             <td>
-                                                <a href="{{ url('main/user/edit/' . $row->id) }}" class="btn btn-warning"><i
-                                                        class="fa fa-edit"></i></a>
-                                                <a href="{{ url('main/user/hapus/' . $row->id) }}"
-                                                    onclick="return confirm('Are you sure?'); return false;"
-                                                    class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                                {{-- <a href="/main/dokumen/{{ $item->id }}/edit" class="btn btn-warning"><i
+                                                        class="fa fa-edit"></i></a> --}}
+                                                <form action="{{ route('dokumen.destroy', $item->id) }}" method="POST"
+                                                    class="d-inline">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="btn btn-danger border-0"
+                                                        onclick="return confirm('Are you sure?'); return false;"><i
+                                                            class="fa fa-trash"></i></button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
