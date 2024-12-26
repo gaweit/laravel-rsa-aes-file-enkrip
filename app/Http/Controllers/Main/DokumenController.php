@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Main;
 
 use App\Models\Dokumen;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Helpers\CryptoHelper;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -35,20 +37,41 @@ class DokumenController extends Controller
     {
         $request->validate(
             [
-                'user_id' => 'required',
                 'algoritme' => 'required',
-                'file' => 'required',
+                'file' => 'required|file',
             ],
             [
-                'user_id.required' => 'user_id Kosong !',
-                'algoritme.required' => 'algoritme Kosong !',
-                'file.required' => 'file Kosong !',
-            ],
+                'algoritme.required' => 'Algoritme harus dipilih!',
+                'file.required' => 'File harus diunggah!',
+            ]
         );
+
+        // Generate kunci AES
+        $aesKey = Str::random(16); // Panjang 32 karakter untuk kunci AES
+
+        // Baca file yang diunggah
+        $fileContent = file_get_contents($request->file('file')->getPathname());
+
+        // Enkripsi file dengan AES
+        $encryptedFile = CryptoHelper::encryptFileAES($fileContent, $aesKey);
+
+        // Simpan file terenkripsi
+        $encryptedFilePath = $request->file('file')->store('file/encrypted', 'public');
+        file_put_contents(storage_path("app/public/$encryptedFilePath"), $encryptedFile);
+
+        // RSA Kunci Publik (Ganti dengan kunci Anda)
+        $publicKey = file_get_contents(storage_path('keys/public.pem')); // Path ke kunci publik
+
+        // Enkripsi kunci AES menggunakan RSA
+        // $encryptedAESKey = CryptoHelper::encryptAESKeyRSA($aesKey, $publicKey);
+        $encryptedAESKey = base64_encode(CryptoHelper::encryptAESKeyRSA($aesKey, $publicKey));
+
+
+        // Simpan data ke database
         Dokumen::create([
-            'user_id' => $request->user_id,
+            'user_id' => Auth::id(),
             'algoritme' => $request->algoritme,
-            'file' => $request->file('file')->store('file', 'public'),
+            'file' => $encryptedFilePath,
         ]);
         return redirect('main/dokumen')->with('success', 'Data berhasil disimpan!');
     }
@@ -56,6 +79,34 @@ class DokumenController extends Controller
     /**
      * Display the specified resource.
      */
+
+    public function decrypt($id)
+    {
+        $dokumen = Dokumen::findOrFail($id);
+
+        // RSA Kunci Privat (Ganti dengan kunci Anda)
+        $privateKey = file_get_contents(storage_path('keys/private.pem'));
+
+        // Ambil kunci AES terenkripsi dari database (misalnya di kolom encrypted_key)
+        $encryptedAESKey = $dokumen->encrypted_key; // Pastikan kolom ini ada di database
+
+        // Dekripsi kunci AES menggunakan RSA
+        $aesKey = CryptoHelper::decryptAESKeyRSA($encryptedAESKey, $privateKey);
+
+        // Dekripsi file dengan AES
+        $encryptedFileContent = file_get_contents(storage_path("app/public/{$dokumen->file}"));
+        $decryptedFile = CryptoHelper::decryptFileAES($encryptedFileContent, $aesKey);
+
+        // Mengatur nama file hasil dekripsi
+        $filename = 'decrypted_' . basename($dokumen->file);
+
+        // Mengirimkan file untuk diunduh
+        return response($decryptedFile)
+            ->header('Content-Type', 'application/octet-stream')
+            ->header('Content-Disposition', "attachment; filename=\"{$filename}\"");
+    }
+
+
     public function show(string $id)
     {
         //

@@ -44,22 +44,28 @@
                                         <tr>
                                             <td>{{ $urutan++ }}</td>
                                             <td>{{ $item->user->name }}</td>
-                                            <td><a target="_blank" href="{{ asset('storage/' . $item->file) }}"
-                                                    class="btn btn-primary">Download File</a></td>
                                             <td>
-                                                {{-- <a href="/main/dokumen/{{ $item->id }}/edit" class="btn btn-warning"><i
-                                                        class="fa fa-edit"></i></a> --}}
+                                                <a target="_blank" href="{{ asset('storage/' . $item->file) }}"
+                                                    class="btn btn-primary">Download File</a>
+                                                <a href="{{ route('dokumen.decrypt', $item->id) }}"
+                                                    class="btn btn-warning">Decrypt & Download</a>
+
+                                            </td>
+                                            <td>
                                                 <form action="{{ route('dokumen.destroy', $item->id) }}" method="POST"
                                                     class="d-inline">
                                                     @csrf
                                                     @method('delete')
                                                     <button type="submit" class="btn btn-danger border-0"
-                                                        onclick="return confirm('Are you sure?'); return false;"><i
-                                                            class="fa fa-trash"></i></button>
+                                                        onclick="return confirm('Are you sure?'); return false;">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
                                                 </form>
                                             </td>
                                         </tr>
                                     @endforeach
+                                </tbody>
+
                             </table>
                         </div>
                         <!-- /.card-body -->

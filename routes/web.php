@@ -37,5 +37,7 @@ Route::prefix('main')->middleware('auth')->group(function () {
 
     // kategori
     Route::resource('kategori', KategoriController::class);
+
+    Route::get('dokumen/decrypt/{id}', [DokumenController::class, 'decrypt'])->name('dokumen.decrypt');
     Route::resource('dokumen', DokumenController::class);
 });
