@@ -45,8 +45,6 @@
                                             <td>{{ $urutan++ }}</td>
                                             <td>{{ $item->user->name }}</td>
                                             <td>
-                                                <a target="_blank" href="{{ asset('storage/' . $item->file) }}"
-                                                    class="btn btn-primary">Download File</a>
                                                 <a href="{{ route('dokumen.decrypt', $item->id) }}"
                                                     class="btn btn-warning">Decrypt & Download</a>
 
