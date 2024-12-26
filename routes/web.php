@@ -35,8 +35,6 @@ Route::prefix('main')->middleware('auth')->group(function () {
     Route::post('user/aksi_ubah/{id}', [UserController::class, 'aksi_ubah'])->name('user.aksi_ubah');
     Route::get('user/hapus/{id}', [UserController::class, 'hapus'])->name('user.hapus');
 
-    // kategori
-    Route::resource('kategori', KategoriController::class);
 
     Route::get('dokumen/decrypt/{id}', [DokumenController::class, 'decrypt'])->name('dokumen.decrypt');
     Route::resource('dokumen', DokumenController::class);
